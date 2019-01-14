@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2046
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{480C5F07-3956-4518-BCE2-95D7B241126F}"
+	ProjectSection(SolutionItems) = preProject
+		Reminders.txt = Reminders.txt
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoeTrace.API", "MoeTrace.API\MoeTrace.API.csproj", "{E0F71AA8-CD06-4AAB-9D37-B38E48B44D16}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5114F71D-B255-49F0-B94D-EBC7CA4D7C93}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsolePlayground", "Tests\ConsolePlayground\ConsolePlayground.csproj", "{978243B7-5930-46D7-9F9E-ECBD2A4A8ED0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E0F71AA8-CD06-4AAB-9D37-B38E48B44D16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0F71AA8-CD06-4AAB-9D37-B38E48B44D16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0F71AA8-CD06-4AAB-9D37-B38E48B44D16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0F71AA8-CD06-4AAB-9D37-B38E48B44D16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{978243B7-5930-46D7-9F9E-ECBD2A4A8ED0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{978243B7-5930-46D7-9F9E-ECBD2A4A8ED0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{978243B7-5930-46D7-9F9E-ECBD2A4A8ED0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{978243B7-5930-46D7-9F9E-ECBD2A4A8ED0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E0F71AA8-CD06-4AAB-9D37-B38E48B44D16} = {480C5F07-3956-4518-BCE2-95D7B241126F}
+		{978243B7-5930-46D7-9F9E-ECBD2A4A8ED0} = {5114F71D-B255-49F0-B94D-EBC7CA4D7C93}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FD00892B-15FD-4465-A0C9-B70EFE693E75}
+	EndGlobalSection
+EndGlobal

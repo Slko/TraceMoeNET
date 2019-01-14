@@ -1,0 +1,8 @@
+!!! https://soruly.github.io/trace.moe/#/ !!!
+
+https://blogs.msdn.microsoft.com/dotnet/2017/01/19/net-core-image-processing/
+
+https://www.nuget.org/packages/Discord.Net/
+
+https://github.com/NaamloosDT/DSharpPlus
+
