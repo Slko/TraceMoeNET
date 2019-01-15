@@ -3,4 +3,4 @@
 
 
 ## **Official MoeTraceMultiPlattform/.NET MoeTrace.API Discord**
-![Discord Banner 2](https://discordapp.com/api/guilds/534752920382734336/widget.png?style=banner2)
+[![Discord Banner 2](https://discordapp.com/api/guilds/534752920382734336/widget.png?style=banner2)](https://discord.gg/hDr2QcV)
