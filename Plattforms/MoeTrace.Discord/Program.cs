@@ -35,7 +35,7 @@ namespace MoeTrace.DiscordRunner
         }
         public static async System.Threading.Tasks.Task RunnBotAsync()
         {
-            ConfigHandler config = ConfigHandler.LoadConfig();
+            ConfigData config = ConfigHandler.LoadConfig();
             
             discordclient = new DiscordSocketClient();
             moeapi = new API.ApiConversion(config.TraceMoeToken);
