@@ -1,6 +1,5 @@
 language: csharp
 solution: MoeTraceMultiPlattform.sln
 script:
-  - cd DotAdvancedDictionaryCore
   - dotnet restore
   - dotnet build -c Release
