@@ -4,9 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{480C5F07-3956-4518-BCE2-95D7B241126F}"
-	ProjectSection(SolutionItems) = preProject
-		Reminders.txt = Reminders.txt
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoeTrace.API", "MoeTrace.API\MoeTrace.API.csproj", "{E0F71AA8-CD06-4AAB-9D37-B38E48B44D16}"
 EndProject
