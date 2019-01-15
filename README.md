@@ -4,3 +4,6 @@
 
 ## **Official MoeTraceMultiPlattform/.NET MoeTrace.API Discord**
 [![Discord Banner 2](https://discordapp.com/api/guilds/534752920382734336/widget.png?style=banner2)](https://discord.gg/hDr2QcV)
+
+## Test the bot for yourself [here](https://discordapp.com/api/oauth2/authorize?client_id=534687801271386122&permissions=0&scope=bot).
+

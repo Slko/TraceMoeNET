@@ -126,7 +126,7 @@ namespace MoeTrace.DiscordBot
         {
             EmbedBuilder embuild = new EmbedBuilder();
             return embuild.WithTitle($"Hello {username}, you can send me any anime Image and i tell you which one it is.")
-                .WithDescription(@"You can send me Images on any Channel where i can read it and you can also send me Images in this private channel.")
+                .WithDescription(@"You can send me Images on any Channel where i can read it by mentioning me. You can also send me Images in this private channel.")
                 .AddField("Have Fun!", "^^").Build();
 
         }
