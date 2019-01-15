@@ -23,7 +23,7 @@ namespace MoeTrace.MoeTrace.DiscordRunner.DataConversion
                     .WithFooter(footer =>
                     {
                         footer
-                            .WithText("By Neuxz")
+                            .WithText("By Neuxz#6356")
                             .WithIconUrl("https://github.com/Neuxz.png");
                     })
                     .WithThumbnailUrl(moeapi.ImageThumbUrl(resp))
