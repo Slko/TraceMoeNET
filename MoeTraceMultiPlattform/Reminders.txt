@@ -6,3 +6,4 @@ https://www.nuget.org/packages/Discord.Net/
 
 https://github.com/NaamloosDT/DSharpPlus
 
+Magick.NET

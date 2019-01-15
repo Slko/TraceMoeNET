@@ -1,5 +1,6 @@
 ﻿using MoeTrace.API;
 using MoeTrace.API.DataStructures;
+using MoeTrace.API.ImageProcessing;
 using System;
 using System.IO;
 using static System.Net.Mime.MediaTypeNames;
@@ -18,8 +19,14 @@ namespace ConsolePlayground
                 {
                     path = Console.ReadLine();
                 } while (File.Exists(path) == false);
-                string base64String = Convert.ToBase64String(File.ReadAllBytes(path));
-                SearchResponse sr = apicon.TraceAnimeAsync(base64String).GetAwaiter().GetResult();
+
+                byte[] imagebyte = File.ReadAllBytes(path);
+                float mp = ImageCompression.CalculateSize(imagebyte);
+                imagebyte = ImageCompression.CompressImage(imagebyte, (1f / mp));
+                mp = ImageCompression.CalculateSize(imagebyte);
+                File.WriteAllBytes("imag2.jpg", imagebyte);
+
+                SearchResponse sr = apicon.TraceAnimeAsync(imagebyte).GetAwaiter().GetResult();
 
                 Console.WriteLine(sr);
             } while (Console.ReadLine().ToLower().Equals("exit"));
