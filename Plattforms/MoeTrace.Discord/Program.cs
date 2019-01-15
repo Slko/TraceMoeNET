@@ -14,6 +14,9 @@ namespace MoeTrace.DiscordRunner
     {
         static DiscordSocketClient discordclient;
         static API.ApiConversion moeapi;
+        static string ownerName = "";
+        static string ownerID = "";
+        static bool botRunning = true;
         static void Main(string[] args)
         {
             if (ConfigHandler.FileExsits)
@@ -22,7 +25,7 @@ namespace MoeTrace.DiscordRunner
                 do
                 {
 
-                } while (Console.ReadLine().ToLower().Equals("exit"));
+                } while (Console.ReadLine().ToLower().Equals("exit") || botRunning);
             }
             else
             {
@@ -32,7 +35,7 @@ namespace MoeTrace.DiscordRunner
         }
         public static async System.Threading.Tasks.Task RunnBotAsync()
         {
-            ConfigData config = ConfigHandler.LoadConfig();
+            ConfigHandler config = ConfigHandler.LoadConfig();
             
             discordclient = new DiscordSocketClient();
             moeapi = new API.ApiConversion(config.TraceMoeToken);
@@ -44,6 +47,8 @@ namespace MoeTrace.DiscordRunner
             };
             discordclient.MessageReceived += async (arg) =>
             {
+                if(arg.Author.Username.Equals(ownerName) || arg.Author.Id.ToString().Equals(ownerID))
+                { }
                 if(arg.Attachments.Count > 0 && arg.Author.Id != discordclient.CurrentUser.Id)
                 {
                     foreach (var attachment in arg.Attachments)

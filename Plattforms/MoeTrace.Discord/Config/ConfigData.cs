@@ -9,5 +9,6 @@ namespace MoeTrace.DiscordRunner.Config
     {
         public string DiscordToken { get; set; } = " ";
         public string TraceMoeToken { get; set; } = " ";
+        public string BotOwner { get; set; } = "Neuxz#6356";
     }
 }
