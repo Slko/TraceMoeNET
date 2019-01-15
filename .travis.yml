@@ -4,6 +4,9 @@ branches:
   only:
   - master
 script:
+  - dotnet build -c Release -f netcoreapp2.0 MoeTrace.API/MoeTrace.API.csproj
+  - dotnet build -c Release -f netcoreapp2.0 Plattforms/MoeTrace.Discord/MoeTrace.DiscordRunner.csproj
+  - dotnet build -c Release -f netcoreapp2.0 Tests/ConsolePlayground/ConsolePlayground.csproj
   - dotnet test -c Release -f netcoreapp2.0 MoeTrace.API/MoeTrace.API.csproj
   - dotnet test -c Release -f netcoreapp2.0 Plattforms/MoeTrace.Discord/MoeTrace.DiscordRunner.csproj
   - dotnet test -c Release -f netcoreapp2.0 Tests/ConsolePlayground/ConsolePlayground.csproj
