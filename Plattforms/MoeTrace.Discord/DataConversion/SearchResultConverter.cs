@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MoeTrace.MoeTrace.DiscordRunner.DataConversion
+namespace MoeTrace.MoeTrace.BotRunner.DataConversion
 {
     public static class SearchResultConverter
     {
@@ -15,7 +15,7 @@ namespace MoeTrace.MoeTrace.DiscordRunner.DataConversion
             if (resp.docs.Length > 0)
             {
                 Doc data = resp.docs[0];
-                builder.WithTitle($"Im {Math.Round(data.similarity, 2)}% shure that's")
+                builder.WithTitle($"Im {Math.Round(data.similarity, 2)*100}% shure that's")
                     .WithDescription($"**{data.title_english}**")
                     .WithUrl("https://trace.moe")
                     .WithColor(new Color(0x74110))
@@ -26,7 +26,7 @@ namespace MoeTrace.MoeTrace.DiscordRunner.DataConversion
                             .WithText("By Neuxz#6356")
                             .WithIconUrl("https://github.com/Neuxz.png");
                     })
-                    .WithThumbnailUrl(moeapi.ImageThumbUrl(resp))
+                    .WithImageUrl(moeapi.ImageThumbUrl(resp))
                     .WithAuthor(author =>
                     {
                         author
@@ -34,6 +34,7 @@ namespace MoeTrace.MoeTrace.DiscordRunner.DataConversion
                             .WithUrl("https://github.com/Neuxz/MoeTraceMultoPlattform")
                             .WithIconUrl("https://github.com/Neuxz.png");
                     })
+
                     .AddField("Name English", data.title_english)
                     .AddField("Name Original", data.anime)
                     .AddField("Episode", data.episode)

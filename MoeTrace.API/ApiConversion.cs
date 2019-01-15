@@ -77,8 +77,9 @@ namespace MoeTrace.API
             if (resp.docs.Length > 0)
             {
                 Doc data = resp.docs[0];
-                url = String.Format(APIStatics.thumbnailurl + APIStatics.anilistkey + data.anilist_id + APIStatics.filename + Uri.EscapeUriString(data.filename) + APIStatics.timestamp + data.at + APIStatics.tokenthmbprev + data.tokenthumb);
+                url = String.Format(APIStatics.thumbnailurl + APIStatics.anilistkey + data.anilist_id + APIStatics.filename + Uri.EscapeDataString(data.filename) + APIStatics.timestamp + data.at.ToString(System.Globalization.CultureInfo.InvariantCulture) + APIStatics.tokenthmbprev + data.tokenthumb);
             }
+            bool test = Uri.CheckSchemeName(url);
             return url;
         }
         public byte[] ImageThumbData(SearchResponse resp)
@@ -92,7 +93,7 @@ namespace MoeTrace.API
             if (resp.docs.Length > 0)
             {
                 Doc data = resp.docs[0];
-                url = String.Format(APIStatics.previewurl + APIStatics.anilistkey + data.anilist_id + APIStatics.filename + data.filename + APIStatics.timestamp + data.at + APIStatics.tokenthmbprev + data.tokenthumb);
+                url = String.Format(APIStatics.previewurl + APIStatics.anilistkey + data.anilist_id + APIStatics.filename + data.filename + APIStatics.timestamp + data.at.ToString(System.Globalization.CultureInfo.InvariantCulture) + APIStatics.tokenthmbprev + data.tokenthumb);
             }
             return url;
         }

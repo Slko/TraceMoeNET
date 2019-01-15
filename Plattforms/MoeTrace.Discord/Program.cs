@@ -1,14 +1,18 @@
-﻿using Discord.Rest;
+﻿using Discord;
+using Discord.Rest;
 using Discord.WebSocket;
 using MoeTrace.API.DataStructures;
-using MoeTrace.DiscordRunner.Config;
-using MoeTrace.MoeTrace.DiscordRunner.DataConversion;
+using MoeTrace.DiscordBot.Config;
+using MoeTrace.MoeTrace.BotRunner.DataConversion;
 using System;
+using System.Linq;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 
-namespace MoeTrace.DiscordRunner
+namespace MoeTrace.DiscordBot
 {
     class Program
     {
@@ -21,11 +25,26 @@ namespace MoeTrace.DiscordRunner
         {
             if (ConfigHandler.FileExsits)
             {
-                RunnBotAsync().GetAwaiter().GetResult();
+                ConfigData config = ConfigHandler.LoadConfig();
+
+                switch(config.CheckConfig())
+                {
+                    case ErrorStates.Error:
+                        botRunning = false;
+                        Console.WriteLine(config.GetProblemsOfConfig());
+                        break;
+                    case ErrorStates.Warning:
+                        Console.WriteLine(config.GetProblemsOfConfig());
+                        RunnBotAsync(config);
+                        break;
+                    case ErrorStates.None:
+                        RunnBotAsync(config);
+                        break;
+                }
+
                 do
                 {
-
-                } while (Console.ReadLine().ToLower().Equals("exit") || botRunning);
+                } while (botRunning);
             }
             else
             {
@@ -33,9 +52,12 @@ namespace MoeTrace.DiscordRunner
             }
             
         }
-        public static async System.Threading.Tasks.Task RunnBotAsync()
+        public static async System.Threading.Tasks.Task RunnBotAsync(ConfigData config)
         {
-            ConfigData config = ConfigHandler.LoadConfig();
+
+            string[] userdata = config.BotOwner.Split('#');
+            ownerName = userdata[0];
+            ownerID = userdata[1];
             
             discordclient = new DiscordSocketClient();
             moeapi = new API.ApiConversion(config.TraceMoeToken);
@@ -47,37 +69,66 @@ namespace MoeTrace.DiscordRunner
             };
             discordclient.MessageReceived += async (arg) =>
             {
-                if(arg.Author.Username.Equals(ownerName) || arg.Author.Id.ToString().Equals(ownerID))
-                { }
+                bool privateChannel = (arg.Channel.Name.Contains('@') || arg.Channel.Name.Contains('#'));
+
+                if (arg.Author.Username.Equals(ownerName) && arg.Author.Discriminator.ToString().Equals(ownerID))
+                {
+                    if(arg.Content.StartsWith('/'))
+                    {
+                        string[] command = arg.Content.Split(' ');
+                        if(command[0].ToLower().Equals("/stop"))
+                        {
+                            botRunning = false;
+                            discordclient.StopAsync();
+                        }
+                    }
+                }
                 if(arg.Attachments.Count > 0 && arg.Author.Id != discordclient.CurrentUser.Id)
                 {
-                    foreach (var attachment in arg.Attachments)
-                    {
-                        RestUserMessage umsg = await arg.Channel.SendMessageAsync("Download Image...");
-                        WebClient wc = new WebClient();
-                        byte[] data = wc.DownloadData(attachment.Url);
-
-                        await umsg.ModifyAsync(msg => msg.Content = "Processing Image...");
-                        SearchResponse resp = await moeapi.TraceAnimeAsync(data);
-
-
-                        await umsg.ModifyAsync(msg =>
+                    if(arg.MentionedUsers.Any(user => user.Id == discordclient.CurrentUser.Id))
+                        foreach (var attachment in arg.Attachments)
                         {
-                            msg.Content = "";
-                            msg.Embed = moeapi.ConvertResults(resp);
+                            RestUserMessage umsg = await arg.Channel.SendMessageAsync("Download Image...");
+                            WebClient wc = new WebClient();
+                            byte[] data = wc.DownloadData(attachment.Url);
+
+                            await umsg.ModifyAsync(msg => msg.Content = "Processing Image...");
+                            SearchResponse resp = await moeapi.TraceAnimeAsync(data);
+
+
+                            await umsg.ModifyAsync(msg =>
+                            {
+                                msg.Content = "";
+                                msg.Embed = moeapi.ConvertResults(resp);
                             });
-                    }
+                            arg.Channel.SendFileAsync(new MemoryStream(moeapi.VideoThumbData(resp)), "thumb.mp4");
+                        }
+                    
                 }
             };
 
+            discordclient.UserJoined += UserJoindAsync;
 
             Task.WaitAll(
                 discordclient.LoginAsync(Discord.TokenType.Bot, config.DiscordToken),
                 discordclient.StartAsync()
                 );
 
+        }
 
-            IReadOnlyCollection<Discord.Rest.RestConnection> con = await discordclient.GetConnectionsAsync();
+        private static async Task UserJoindAsync(SocketGuildUser arg)
+        {
+            IDMChannel dmc = await arg.GetOrCreateDMChannelAsync();
+            
+            dmc.SendMessageAsync("", false, CreateWelocmeMessage(arg.Username));
+        }
+        private static Embed CreateWelocmeMessage(string username)
+        {
+            EmbedBuilder embuild = new EmbedBuilder();
+            return embuild.WithTitle($"Hello {username}, you can send me any anime Image and i tell you which one it is.")
+                .WithDescription(@"You can send me Images on any Channel where i can read it and you can also send me Images in this private channel.")
+                .AddField("Have Fun!", "^^").Build();
+
         }
     }
 }

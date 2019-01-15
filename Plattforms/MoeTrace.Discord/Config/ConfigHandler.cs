@@ -5,7 +5,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace MoeTrace.DiscordRunner.Config
+namespace MoeTrace.DiscordBot.Config
 {
     public class ConfigHandler
     {
