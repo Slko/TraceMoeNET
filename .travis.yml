@@ -1,11 +1,9 @@
 language: csharp
-mono: none
-solution: MoeTraceMultiPlattform.sln
-
-language: csharp
 
 branches:
   only:
   - master
 script:
-  - dotnet test -c Release -f netcoreapp2.0 MoeTraceMultiPlattform.sln
+  - dotnet test -c Release -f netcoreapp2.0 MoeTrace.API/MoeTrace.API.csproj
+  - dotnet test -c Release -f netcoreapp2.0 Plattforms/MoeTrace.Discord/MoeTrace.DiscordRunner.csproj
+  - dotnet test -c Release -f netcoreapp2.0 Tests/ConsolePlayground/ConsolePlayground.csproj
