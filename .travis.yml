@@ -1,6 +1,3 @@
 language: csharp
 mono: none
 solution: MoeTraceMultiPlattform.sln
-script:
-  - dotnet restore
-  - dotnet build -c Release
