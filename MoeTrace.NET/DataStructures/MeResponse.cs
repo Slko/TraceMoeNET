@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MoeTrace.API.DataStructures
+namespace MoeTrace.NET.DataStructures
 {
 
     public class MeResponse

@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\MoeTrace.API\MoeTrace.API.csproj" />
+    <ProjectReference Include="..\..\MoeTrace.NET\MoeTrace.NET.csproj" />
   </ItemGroup>
 
 </Project>

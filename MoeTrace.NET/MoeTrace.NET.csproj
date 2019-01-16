@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Neuxz</Authors>
+    <Company />
+    <Description>An simple to use .net core library for anime tracing using https://trace.moe/</Description>
+    <PackageLicenseUrl>https://github.com/Neuxz/MoeTrace.NET/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Neuxz/MoeTrace.NET</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/Neuxz/MoeTrace.NET/master/NuGetIcon.png</PackageIconUrl>
+    <PackageTags>Reverse Search Anime TraceMoe</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="SkiaSharp" Version="1.68.0" />
+  </ItemGroup>
+
+</Project>

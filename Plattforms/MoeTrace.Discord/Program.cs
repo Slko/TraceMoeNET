@@ -1,7 +1,6 @@
 ﻿using Discord;
 using Discord.Rest;
 using Discord.WebSocket;
-using MoeTrace.API.DataStructures;
 using MoeTrace.DiscordBot.Config;
 using MoeTrace.MoeTrace.BotRunner.DataConversion;
 using System;
@@ -11,13 +10,15 @@ using System.IO;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using MoeTrace.NET.DataStructures;
+using MoeTrace.NET;
 
 namespace MoeTrace.DiscordBot
 {
     class Program
     {
         static DiscordSocketClient discordclient;
-        static API.ApiConversion moeapi;
+        static ApiConversion moeapi;
         static string ownerName = "";
         static string ownerID = "";
         static bool botRunning = true;
@@ -60,7 +61,7 @@ namespace MoeTrace.DiscordBot
             ownerID = userdata[1];
             
             discordclient = new DiscordSocketClient();
-            moeapi = new API.ApiConversion(config.TraceMoeToken);
+            moeapi = new ApiConversion(config.TraceMoeToken);
             discordclient.Log += (arg) =>
             {
                 Task runner = new Task(() => Console.WriteLine(arg));

@@ -1,6 +1,6 @@
 ﻿using Discord;
-using MoeTrace.API;
-using MoeTrace.API.DataStructures;
+using MoeTrace.NET;
+using MoeTrace.NET.DataStructures;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,7 +9,7 @@ namespace MoeTrace.MoeTrace.BotRunner.DataConversion
 {
     public static class SearchResultConverter
     {
-        public static Embed ConvertResults(this API.ApiConversion moeapi, SearchResponse resp)
+        public static Embed ConvertResults(this ApiConversion moeapi, SearchResponse resp)
         {
             var builder = new EmbedBuilder();
             if (resp.docs.Length > 0)
