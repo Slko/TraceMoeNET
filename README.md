@@ -1,6 +1,7 @@
 # MoeTraceMultiPlattform 
 
 [![Build status](https://ci.appveyor.com/api/projects/status/7yy8pc8t61jl99fd?svg=true)](https://ci.appveyor.com/project/Neuxz/moetracemultoplattform)
+[![Build Status](https://travis-ci.com/Neuxz/MoeTraceMultoPlattform.svg?branch=master)](https://travis-ci.com/Neuxz/MoeTraceMultoPlattform)
 [![NuGet](https://img.shields.io/nuget/vpre/TraceMoe.NET.svg)](https://www.nuget.org/packages/TraceMoe.NET/)
 
 
