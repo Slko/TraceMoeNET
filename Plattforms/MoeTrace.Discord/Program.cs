@@ -49,7 +49,7 @@ namespace MoeTrace.DiscordBot
             }
             else
             {
-                Console.WriteLine("No Configuration found! Please fill out the config file.");
+                Console.WriteLine("No Configurationfile found! Please fill out the config file.");
             }
             
         }
