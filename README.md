@@ -1,4 +1,4 @@
-# MoeTraceMultiPlattform 
+# MoeTrace.NET
 
 [![Build status](https://ci.appveyor.com/api/projects/status/7yy8pc8t61jl99fd?svg=true)](https://ci.appveyor.com/project/Neuxz/moetracemultoplattform)
 [![Build Status](https://travis-ci.com/Neuxz/MoeTraceMultoPlattform.svg?branch=master)](https://travis-ci.com/Neuxz/MoeTraceMultoPlattform)
