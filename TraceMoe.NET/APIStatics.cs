@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MoeTrace.NET
+namespace TraceMoe.NET
 {
     internal static class APIStatics
     {

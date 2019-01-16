@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace MoeTrace.NET.ImageProcessing
+namespace TraceMoe.NET.ImageProcessing
 {
     public static class ImageCompression
     {

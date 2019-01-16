@@ -1,6 +1,6 @@
-﻿using MoeTrace.NET;
-using MoeTrace.NET.DataStructures;
-using MoeTrace.NET.ImageProcessing;
+﻿using TraceMoe.NET;
+using TraceMoe.NET.DataStructures;
+using TraceMoe.NET.ImageProcessing;
 using System;
 using System.IO;
 using static System.Net.Mime.MediaTypeNames;

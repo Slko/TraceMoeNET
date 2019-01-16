@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MoeTrace.NET.DataStructures
+namespace TraceMoe.NET.DataStructures
 {
 
 

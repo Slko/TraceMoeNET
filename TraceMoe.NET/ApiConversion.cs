@@ -1,4 +1,4 @@
-﻿using MoeTrace.NET.DataStructures;
+﻿using TraceMoe.NET.DataStructures;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 
-namespace MoeTrace.NET
+namespace TraceMoe.NET
 {
     public class ApiConversion
     {

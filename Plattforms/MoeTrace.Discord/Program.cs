@@ -10,8 +10,8 @@ using System.IO;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using MoeTrace.NET.DataStructures;
-using MoeTrace.NET;
+using TraceMoe.NET.DataStructures;
+using TraceMoe.NET;
 
 namespace MoeTrace.DiscordBot
 {

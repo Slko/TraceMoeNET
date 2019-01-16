@@ -1,6 +1,6 @@
 ﻿using Discord;
-using MoeTrace.NET;
-using MoeTrace.NET.DataStructures;
+using TraceMoe.NET;
+using TraceMoe.NET.DataStructures;
 using System;
 using System.Collections.Generic;
 using System.Text;

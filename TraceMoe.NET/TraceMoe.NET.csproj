@@ -10,6 +10,8 @@
     <PackageProjectUrl>https://github.com/Neuxz/MoeTrace.NET</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/Neuxz/MoeTrace.NET/master/NuGetIcon.png</PackageIconUrl>
     <PackageTags>Reverse Search Anime TraceMoe</PackageTags>
+    <RepositoryUrl>https://github.com/Neuxz/MoeTrace.NET/tree/master/MoeTrace.NET</RepositoryUrl>
+    <PackageId>TraceMoe.NET</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
