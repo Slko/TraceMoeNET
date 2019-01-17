@@ -11,8 +11,13 @@ namespace TraceMoe.NET
 {
     public class ApiConversion
     {
-        public WebProxy wp { get; set; }
+
+        public WebProxy WebProxy { get; set; }
         private static string APIKey;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="apikey">Api for Trace Moe. "Leave blank for open api"</param>
         public ApiConversion(string apikey = "")
         {
             if (APIKey == null || APIKey.Equals(String.Empty))
@@ -21,10 +26,16 @@ namespace TraceMoe.NET
             }
 
         }
+        /// <summary>
+        /// Traces the Anime according to the image behind the URL.
+        /// </summary>
+        /// <param name="imageUrl">Image url</param>
+        /// <param name="useapikey">If the request should use the given api token. "Ignore if you have no token"</param>
+        /// <returns></returns>
         public async System.Threading.Tasks.Task<SearchResponse> TraceAnimeByUrlAsync(string imageUrl, bool useapikey = true)
         {
             WebClient wc = new WebClient();
-            wc.Proxy = wp;
+            wc.Proxy = WebProxy;
             if (Uri.IsWellFormedUriString(imageUrl, UriKind.RelativeOrAbsolute))
             {
                 return await TraceAnimeByImageAsync(wc.DownloadData(imageUrl), useapikey);
@@ -34,8 +45,8 @@ namespace TraceMoe.NET
         /// <summary>
         /// Traces the Anime according to the image.
         /// </summary>
-        /// <param name="image">Base64 encoded Image</param>
-        /// /// <param name="useapikey">Uses Apikey when true. (Will be handled as false if there is no Api key.)</param>
+        /// <param name="image">Image data.</param>
+        /// /// <param name="useapikey">If the request should use the given api token. "Ignore if you have no token"</param>
         /// <returns>Guess of anime</returns>
         public async System.Threading.Tasks.Task<SearchResponse> TraceAnimeByImageAsync(byte[] image, bool useapikey = true)
         {
@@ -45,7 +56,7 @@ namespace TraceMoe.NET
                 image = ImageProcessing.ImageCompression.CompressImage(image, (1f / imagesize));
             }
 
-            HttpClient client = new HttpClient(new HttpClientHandler() { Proxy = wp });
+            HttpClient client = new HttpClient(new HttpClientHandler() { Proxy = WebProxy });
             client.DefaultRequestHeaders
               .Accept
               .Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -75,7 +86,7 @@ namespace TraceMoe.NET
 
         public async System.Threading.Tasks.Task<MeResponse> GetMeInformationAsync()
         {
-            HttpClient client = new HttpClient(new HttpClientHandler() { Proxy = wp });
+            HttpClient client = new HttpClient(new HttpClientHandler() { Proxy = WebProxy });
             string requesurl = APIStatics.meurl + APIKey;
             HttpResponseMessage responsemsg = await client.GetAsync(requesurl);
             string response = await responsemsg.Content.ReadAsStringAsync();
@@ -96,7 +107,7 @@ namespace TraceMoe.NET
         public byte[] ImageThumbData(SearchResponse resp)
         {
             WebClient wc = new WebClient();
-            wc.Proxy = wp;
+            wc.Proxy = WebProxy;
             return wc.DownloadData(ImageThumbUrl(resp));
         }
         public string VideoThumbUrl(SearchResponse resp)
@@ -112,7 +123,7 @@ namespace TraceMoe.NET
         public byte[] VideoThumbData(SearchResponse resp)
         {
             WebClient wc = new WebClient();
-            wc.Proxy = wp;
+            wc.Proxy = WebProxy;
             return wc.DownloadData(VideoThumbUrl(resp));
         }
     }
