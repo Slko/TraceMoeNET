@@ -94,7 +94,7 @@ namespace MoeTrace.DiscordBot
                             byte[] data = wc.DownloadData(attachment.Url);
 
                             await umsg.ModifyAsync(msg => msg.Content = "Processing Image...");
-                            SearchResponse resp = await moeapi.TraceAnimeAsync(data);
+                            SearchResponse resp = await moeapi.TraceAnimeByImageAsync(data);
 
 
                             await umsg.ModifyAsync(msg =>

@@ -12,10 +12,10 @@
     <PackageTags>Reverse Search Anime TraceMoe ImageSearch Trace.Moe</PackageTags>
     <RepositoryUrl>https://github.com/Neuxz/TraceMoe.NET/tree/master/MoeTrace.NET</RepositoryUrl>
     <PackageId>TraceMoe.NET</PackageId>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Product>TraceMoe.NET</Product>
-    <AssemblyVersion>1.0.1.2</AssemblyVersion>
-    <FileVersion>1.0.1.2</FileVersion>
+    <AssemblyVersion>1.0.1.3</AssemblyVersion>
+    <FileVersion>1.0.1.3</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

@@ -11,6 +11,7 @@ namespace TraceMoe.NET
 {
     public class ApiConversion
     {
+        public WebProxy wp { get; set; }
         private static string APIKey;
         public ApiConversion(string apikey = "")
         {
@@ -20,13 +21,23 @@ namespace TraceMoe.NET
             }
 
         }
+        public async System.Threading.Tasks.Task<SearchResponse> TraceAnimeByUrlAsync(string imageUrl, bool useapikey = true)
+        {
+            WebClient wc = new WebClient();
+            wc.Proxy = wp;
+            if (Uri.IsWellFormedUriString(imageUrl, UriKind.RelativeOrAbsolute))
+            {
+                return await TraceAnimeByImageAsync(wc.DownloadData(imageUrl), useapikey);
+            }
+            return null;
+        }
         /// <summary>
         /// Traces the Anime according to the image.
         /// </summary>
         /// <param name="image">Base64 encoded Image</param>
         /// /// <param name="useapikey">Uses Apikey when true. (Will be handled as false if there is no Api key.)</param>
         /// <returns>Guess of anime</returns>
-        public async System.Threading.Tasks.Task<SearchResponse> TraceAnimeAsync(byte[] image, bool useapikey = true)
+        public async System.Threading.Tasks.Task<SearchResponse> TraceAnimeByImageAsync(byte[] image, bool useapikey = true)
         {
             float imagesize = ImageProcessing.ImageCompression.CalculateSize(image);
             if (imagesize > 1f)
@@ -34,7 +45,7 @@ namespace TraceMoe.NET
                 image = ImageProcessing.ImageCompression.CompressImage(image, (1f / imagesize));
             }
 
-            HttpClient client = new HttpClient();
+            HttpClient client = new HttpClient(new HttpClientHandler() { Proxy = wp });
             client.DefaultRequestHeaders
               .Accept
               .Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -64,7 +75,7 @@ namespace TraceMoe.NET
 
         public async System.Threading.Tasks.Task<MeResponse> GetMeInformationAsync()
         {
-            HttpClient client = new HttpClient();
+            HttpClient client = new HttpClient(new HttpClientHandler() { Proxy = wp });
             string requesurl = APIStatics.meurl + APIKey;
             HttpResponseMessage responsemsg = await client.GetAsync(requesurl);
             string response = await responsemsg.Content.ReadAsStringAsync();
@@ -85,6 +96,7 @@ namespace TraceMoe.NET
         public byte[] ImageThumbData(SearchResponse resp)
         {
             WebClient wc = new WebClient();
+            wc.Proxy = wp;
             return wc.DownloadData(ImageThumbUrl(resp));
         }
         public string VideoThumbUrl(SearchResponse resp)
@@ -100,6 +112,7 @@ namespace TraceMoe.NET
         public byte[] VideoThumbData(SearchResponse resp)
         {
             WebClient wc = new WebClient();
+            wc.Proxy = wp;
             return wc.DownloadData(VideoThumbUrl(resp));
         }
     }

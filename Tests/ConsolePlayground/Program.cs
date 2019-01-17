@@ -26,7 +26,7 @@ namespace ConsolePlayground
                 mp = ImageCompression.CalculateSize(imagebyte);
                 File.WriteAllBytes("imag2.jpg", imagebyte);
 
-                SearchResponse sr = apicon.TraceAnimeAsync(imagebyte).GetAwaiter().GetResult();
+                SearchResponse sr = apicon.TraceAnimeByImageAsync(imagebyte).GetAwaiter().GetResult();
 
                 Console.WriteLine(sr);
             } while (Console.ReadLine().ToLower().Equals("exit"));
