@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Neuxz</Authors>
     <Company />
@@ -11,7 +11,9 @@
     <PackageIconUrl>https://raw.githubusercontent.com/Neuxz/MoeTrace.NET/master/NuGetIcon.png</PackageIconUrl>
     <PackageTags>Reverse Search Anime TraceMoe</PackageTags>
     <RepositoryUrl>https://github.com/Neuxz/MoeTrace.NET/tree/master/MoeTrace.NET</RepositoryUrl>
-    <PackageId>TraceMoe.NET</PackageId>
+    <PackageId>MoeTrace.NET</PackageId>
+    <Version>1.0.1</Version>
+    <Product>MoeTrace.NET</Product>
   </PropertyGroup>
 
   <ItemGroup>
