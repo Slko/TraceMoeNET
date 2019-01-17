@@ -6,14 +6,16 @@
     <Authors>Neuxz</Authors>
     <Company />
     <Description>An simple to use .net core library for anime tracing using https://trace.moe/</Description>
-    <PackageLicenseUrl>https://github.com/Neuxz/MoeTrace.NET/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/Neuxz/MoeTrace.NET</PackageProjectUrl>
-    <PackageIconUrl>https://raw.githubusercontent.com/Neuxz/MoeTrace.NET/master/NuGetIcon.png</PackageIconUrl>
-    <PackageTags>Reverse Search Anime TraceMoe</PackageTags>
-    <RepositoryUrl>https://github.com/Neuxz/MoeTrace.NET/tree/master/MoeTrace.NET</RepositoryUrl>
-    <PackageId>MoeTrace.NET</PackageId>
+    <PackageLicenseUrl>https://github.com/Neuxz/TraceMoe.NET/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Neuxz/TraceMoe.NET</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/Neuxz/TraceMoe.NET/master/NuGetIcon.png</PackageIconUrl>
+    <PackageTags>Reverse Search Anime TraceMoe ImageSearch Trace.Moe</PackageTags>
+    <RepositoryUrl>https://github.com/Neuxz/TraceMoe.NET/tree/master/MoeTrace.NET</RepositoryUrl>
+    <PackageId>TraceMoe.NET</PackageId>
     <Version>1.0.1</Version>
-    <Product>MoeTrace.NET</Product>
+    <Product>TraceMoe.NET</Product>
+    <AssemblyVersion>1.0.1.1</AssemblyVersion>
+    <FileVersion>1.0.1.1</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
