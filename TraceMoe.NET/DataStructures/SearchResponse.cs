@@ -8,23 +8,23 @@ namespace TraceMoe.NET.DataStructures
 
     public class SearchResponse
     {
-        public int RawDocsCount { get; set; }
-        public int RawDocsSearchTime { get; set; }
-        public int ReRankSearchTime { get; set; }
+        public float RawDocsCount { get; set; }
+        public float RawDocsSearchTime { get; set; }
+        public float ReRankSearchTime { get; set; }
         public bool CacheHit { get; set; }
-        public int trial { get; set; }
+        public float trial { get; set; }
         public Doc[] docs { get; set; }
-        public int limit { get; set; }
-        public int limit_ttl { get; set; }
-        public int quota { get; set; }
-        public int quota_ttl { get; set; }
+        public float limit { get; set; }
+        public float limit_ttl { get; set; }
+        public float quota { get; set; }
+        public float quota_ttl { get; set; }
     }
 
     public class Doc
     {
         public float from { get; set; }
         public float to { get; set; }
-        public int anilist_id { get; set; }
+        public float anilist_id { get; set; }
         public float at { get; set; }
         public string season { get; set; }
         public string anime { get; set; }
@@ -37,7 +37,7 @@ namespace TraceMoe.NET.DataStructures
         public string title_chinese { get; set; }
         public string title_english { get; set; }
         public string title_romaji { get; set; }
-        public int mal_id { get; set; }
+        public float mal_id { get; set; }
         public object[] synonyms { get; set; }
         public string[] synonyms_chinese { get; set; }
         public bool is_adult { get; set; }
