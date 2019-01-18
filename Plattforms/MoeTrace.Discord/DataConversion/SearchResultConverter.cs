@@ -15,9 +15,8 @@ namespace MoeTrace.MoeTrace.BotRunner.DataConversion
             if (resp.docs.Length > 0)
             {
                 Doc data = resp.docs[0];
-                builder.WithTitle($"Im {Math.Round(data.similarity, 2)*100}% shure that's")
-                    .WithDescription($"**{data.title_english}**")
-                    .WithUrl("https://trace.moe")
+                builder.WithTitle($"I'm {Math.Round(data.similarity, 2)*100}% sure that's **{data.title_english}**")
+                    .WithUrl($"https://anilist.co/anime/{data.anilist_id}")
                     .WithColor(new Color(0x74110))
                     .WithTimestamp(DateTimeOffset.FromUnixTimeMilliseconds(1547555778762))
                     .WithFooter(footer =>
@@ -30,9 +29,9 @@ namespace MoeTrace.MoeTrace.BotRunner.DataConversion
                     .WithAuthor(author =>
                     {
                         author
-                            .WithName("MoeTrace.Bot")
-                            .WithUrl("https://github.com/Neuxz/MoeTraceMultoPlattform")
-                            .WithIconUrl("https://github.com/Neuxz.png");
+                            .WithName("TraceMoe.NET")
+                            .WithUrl("https://github.com/Neuxz/TraceMoe.NET")
+                            .WithIconUrl("https://raw.githubusercontent.com/Neuxz/TraceMoe.NET/master/NuGetIcon.png");
                     })
 
                     .AddField("Name English", data.title_english)

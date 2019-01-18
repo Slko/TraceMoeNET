@@ -86,7 +86,7 @@ namespace MoeTrace.DiscordBot
                 }
                 if(arg.Attachments.Count > 0 && arg.Author.Id != discordclient.CurrentUser.Id)
                 {
-                    if(arg.MentionedUsers.Any(user => user.Id == discordclient.CurrentUser.Id))
+                    if(arg.MentionedUsers.Any(user => user.Id == discordclient.CurrentUser.Id) || privateChannel)
                         foreach (var attachment in arg.Attachments)
                         {
                             RestUserMessage umsg = await arg.Channel.SendMessageAsync("Download Image...");
@@ -126,7 +126,7 @@ namespace MoeTrace.DiscordBot
         private static Embed CreateWelocmeMessage(string username)
         {
             EmbedBuilder embuild = new EmbedBuilder();
-            return embuild.WithTitle($"Hello {username}, you can send me any anime Image and i tell you which one it is.")
+            return embuild.WithTitle($"Hello {username}, you can send me any anime Image and I will tell you the Source of it.")
                 .WithDescription(@"You can send me Images on any Channel where i can read it by mentioning me. You can also send me Images in this private channel.")
                 .AddField("Have Fun!", "^^").Build();
 
