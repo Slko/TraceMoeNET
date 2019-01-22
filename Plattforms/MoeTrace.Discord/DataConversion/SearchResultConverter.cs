@@ -51,6 +51,7 @@ namespace MoeTrace.MoeTrace.BotRunner.DataConversion
             {
                 Console.Write(ex);
                 builder.WithTitle("Woops! Something went wrong.");
+                builder.AddField("Error:", ex.Message);
             }
             return builder.Build();
         }
