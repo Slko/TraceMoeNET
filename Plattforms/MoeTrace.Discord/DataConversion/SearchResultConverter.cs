@@ -19,7 +19,7 @@ namespace MoeTrace.MoeTrace.BotRunner.DataConversion
                     Doc data = resp.docs[0];
                     builder.WithTitle($"I'm {Math.Round(data.similarity, 2) * 100}% sure that's **{data.title_english}**")
                         .WithUrl($"https://anilist.co/anime/{data.anilist_id}")
-                        .WithColor(new Color(0x74110))
+                        .WithColor(Color.Green)
                         .WithTimestamp(DateTimeOffset.FromUnixTimeMilliseconds(1547555778762))
                         .WithFooter(footer =>
                         {
@@ -44,13 +44,14 @@ namespace MoeTrace.MoeTrace.BotRunner.DataConversion
                 else
                 {
                     builder.WithTitle("**NO matches!**");
-
+                    builder.WithColor(Color.Red);
                 }
             }
             catch(Exception ex)
             {
                 Console.Write(ex);
                 builder.WithTitle("Woops! Something went wrong.");
+                builder.WithColor(Color.Red);
                 builder.AddField("Error:", ex.Message);
             }
             return builder.Build();
