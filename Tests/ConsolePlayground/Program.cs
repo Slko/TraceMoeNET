@@ -4,6 +4,8 @@ using TraceMoe.NET.ImageProcessing;
 using System;
 using System.IO;
 using static System.Net.Mime.MediaTypeNames;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace ConsolePlayground
 {
@@ -11,6 +13,7 @@ namespace ConsolePlayground
     {
         static void Main(string[] args)
         {
+
             do
             {
                 ApiConversion apicon = new ApiConversion();

@@ -68,45 +68,7 @@ namespace MoeTrace.DiscordBot
                 runner.Start();
                 return runner;
             };
-            discordclient.MessageReceived += async (arg) =>
-            {
-                bool privateChannel = (arg.Channel.Name.Contains('@') || arg.Channel.Name.Contains('#'));
-
-                if (arg.Author.Username.Equals(ownerName) && arg.Author.Discriminator.ToString().Equals(ownerID))
-                {
-                    if(arg.Content.StartsWith('/'))
-                    {
-                        string[] command = arg.Content.Split(' ');
-                        if(command[0].ToLower().Equals("/stop"))
-                        {
-                            botRunning = false;
-                            discordclient.StopAsync();
-                        }
-                    }
-                }
-                if(arg.Attachments.Count > 0 && arg.Author.Id != discordclient.CurrentUser.Id)
-                {
-                    if(arg.MentionedUsers.Any(user => user.Id == discordclient.CurrentUser.Id) || privateChannel)
-                        foreach (var attachment in arg.Attachments)
-                        {
-                            RestUserMessage umsg = await arg.Channel.SendMessageAsync("Download Image...");
-                            WebClient wc = new WebClient();
-                            byte[] data = wc.DownloadData(attachment.Url);
-
-                            await umsg.ModifyAsync(msg => msg.Content = "Processing Image...");
-                            SearchResponse resp = await moeapi.TraceAnimeByImageAsync(data);
-
-
-                            await umsg.ModifyAsync(msg =>
-                            {
-                                msg.Content = "";
-                                msg.Embed = moeapi.ConvertResults(resp);
-                            });
-                            arg.Channel.SendFileAsync(new MemoryStream(moeapi.VideoThumbData(resp)), "thumb.mp4");
-                        }
-                    
-                }
-            };
+            discordclient.MessageReceived += Discordclient_MessageReceivedAsync;
 
             discordclient.UserJoined += UserJoindAsync;
 
@@ -115,6 +77,63 @@ namespace MoeTrace.DiscordBot
                 discordclient.StartAsync()
                 );
 
+        }
+
+        private static async Task Discordclient_MessageReceivedAsync(SocketMessage arg)
+        {
+            bool privateChannel = (arg.Channel.Name.Contains('@') || arg.Channel.Name.Contains('#'));
+
+            if (arg.Author.Username.Equals(ownerName) && arg.Author.Discriminator.ToString().Equals(ownerID))
+            {
+                if (arg.Content.StartsWith('/'))
+                {
+                    string[] command = arg.Content.Split(' ');
+                    if (command[0].ToLower().Equals("/stop"))
+                    {
+                        botRunning = false;
+                        discordclient.StopAsync();
+                    }
+                }
+            }
+            if (arg.Attachments.Count > 0 && arg.Author.Id != discordclient.CurrentUser.Id)
+            {
+                if (arg.MentionedUsers.Any(user => user.Id == discordclient.CurrentUser.Id) || privateChannel)
+                    if (arg.Attachments.Count > 0)
+                    {
+                        foreach (var attachment in arg.Attachments)
+                        {
+                            await ProcessImage(arg, attachment.Url);
+                        }
+                    }
+                else
+                    {
+                        List<string> links = arg.Content.Split("\t\n ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Where(s => s.StartsWith("http://") || s.StartsWith("www.") || s.StartsWith("https://")).ToList();
+                        if(links.Count > 0)
+                        {
+                            await ProcessImage(arg, links[0]);
+                        }
+                    }
+
+            }
+            return;
+        }
+
+        private static async Task ProcessImage(SocketMessage arg, string downloadUrl)
+        {
+            RestUserMessage umsg = await arg.Channel.SendMessageAsync("Download Image...");
+            WebClient wc = new WebClient();
+            byte[] data = wc.DownloadData(downloadUrl);
+
+            await umsg.ModifyAsync(msg => msg.Content = "Processing Image...");
+            SearchResponse resp = await moeapi.TraceAnimeByImageAsync(data);
+
+
+            umsg.ModifyAsync(msg =>
+            {
+                msg.Content = "";
+                msg.Embed = moeapi.ConvertResults(resp);
+            });
+            arg.Channel.SendFileAsync(new MemoryStream(moeapi.VideoThumbData(resp)), "thumb.mp4");
         }
 
         private static async Task UserJoindAsync(SocketGuildUser arg)
