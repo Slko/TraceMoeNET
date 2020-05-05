@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Web;
 
 namespace TraceMoe.NET
 {
@@ -34,13 +35,38 @@ namespace TraceMoe.NET
         /// <returns></returns>
         public async System.Threading.Tasks.Task<SearchResponse> TraceAnimeByUrlAsync(string imageUrl, bool useapikey = true)
         {
-            WebClient wc = new WebClient();
-            wc.Proxy = WebProxy;
-            if (Uri.IsWellFormedUriString(imageUrl, UriKind.RelativeOrAbsolute))
+            Uri url;
+            try
             {
-                return await TraceAnimeByImageAsync(wc.DownloadData(imageUrl), useapikey);
+                url = new Uri(imageUrl);
             }
-            return null;
+            catch (UriFormatException)
+            {
+                return null;
+            }
+
+            if (!string.Equals(url.Scheme, Uri.UriSchemeHttp, StringComparison.OrdinalIgnoreCase) && !string.Equals(url.Scheme, Uri.UriSchemeHttps, StringComparison.OrdinalIgnoreCase))
+            {
+                return null;
+            }
+
+            HttpClient client = new HttpClient(new HttpClientHandler() { Proxy = WebProxy });
+            client.DefaultRequestHeaders
+              .Accept
+              .Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            string requesurl;
+            if (APIKey.Equals(String.Empty) || useapikey == false)
+            {
+                requesurl = APIStatics.searchurl + "?url=";
+            }
+            else
+            {
+                requesurl = APIStatics.tokensearchurl + APIKey + "?url=";
+            }
+
+            HttpResponseMessage responsemsg = await client.GetAsync(requesurl + HttpUtility.UrlEncode(imageUrl, Encoding.UTF8));
+            string response = await responsemsg.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<SearchResponse>(response);
         }
         /// <summary>
         /// Traces the Anime according to the image.
