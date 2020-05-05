@@ -1,7 +1,10 @@
-﻿using SkiaSharp;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace TraceMoe.NET.ImageProcessing
@@ -20,7 +23,8 @@ namespace TraceMoe.NET.ImageProcessing
         /// <returns></returns>
         public static byte[] CompressImage(byte[] imagedata, float imageCompressionFactor)
         {
-            using (SKBitmap bmp = SKBitmap.Decode(imagedata))
+            using (var ms = new MemoryStream(imagedata))
+            using (var bmp = Image.FromStream(ms))
             {
                 int size = (int)(bmp.Width * imageCompressionFactor);
 
@@ -35,22 +39,39 @@ namespace TraceMoe.NET.ImageProcessing
                     width = bmp.Width * size / bmp.Height;
                     height = size;
                 }
-                SKBitmap scaled = bmp.Resize(new SKImageInfo(width, height), SKBitmapResizeMethod.Lanczos3);
-                SKData imageData = SKImage.FromBitmap(scaled).Encode(SKEncodedImageFormat.Jpeg, 100);
 
-                if (APIStatics.ISDebugging)
+                using (var scaled = new Bitmap(width, height))
+                using (var graphics = Graphics.FromImage(scaled))
                 {
-                    Guid imagID = Guid.NewGuid();
-                    Directory.CreateDirectory("/images");
-                    using (var filestream = File.OpenWrite($"/images/image{imagID}.png"))
+                    graphics.CompositingMode = CompositingMode.SourceCopy;
+                    graphics.CompositingQuality = CompositingQuality.HighQuality;
+                    graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                    graphics.SmoothingMode = SmoothingMode.HighQuality;
+                    graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+                    using (var wrapMode = new ImageAttributes())
                     {
-                        imageData.SaveTo(filestream);
+                        wrapMode.SetWrapMode(WrapMode.TileFlipXY);
+                        graphics.DrawImage(bmp, new Rectangle(0, 0, width, height), 0, 0, bmp.Width, bmp.Height, GraphicsUnit.Pixel, wrapMode);
                     }
-                }
 
-                using (BinaryReader br = new BinaryReader(imageData.AsStream()))
-                {
-                    return br.ReadBytes((int)imageData.Size);
+                    if (APIStatics.ISDebugging)
+                    {
+                        Guid imagID = Guid.NewGuid();
+                        Directory.CreateDirectory("/images");
+
+                        scaled.Save($"/images/image{imagID}.png", ImageFormat.Png);
+                    }
+
+                    using (var outputMS = new MemoryStream())
+                    using (var parameters = new EncoderParameters(1))
+                    {
+                        parameters.Param[0] = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 100L);
+
+                        scaled.Save(outputMS, ImageCodecInfo.GetImageEncoders().First(encoder => encoder.FormatID == ImageFormat.Jpeg.Guid), parameters);
+
+                        return outputMS.GetBuffer();
+                    }
                 }
             }
         }
