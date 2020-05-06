@@ -6,8 +6,8 @@
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Title>Slko.TraceMoeNET</Title>
-    <Authors>Neuxz;Slko</Authors>
-    <Copyright>Copyright (c) 2019-2020 Benedikt, Stanislav Skobelkin</Copyright>
+    <Authors>Stanislav Skobelkin, Neuxz</Authors>
+    <Copyright>Copyright (c) 2019-2020 Stanislav Skobelkin, Benedikt</Copyright>
     <Company />
     <Description>A simple to use .NET Standard library for anime tracing using https://trace.moe/</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
