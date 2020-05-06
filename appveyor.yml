@@ -4,4 +4,4 @@ before_build:
   - dotnet restore
 
 build_script:
-  - dotnet build .\MoeTraceMultiPlattform.sln
+  - dotnet build .\Slko.TraceMoeNET.sln

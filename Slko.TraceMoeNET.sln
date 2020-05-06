@@ -1,19 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2046
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{480C5F07-3956-4518-BCE2-95D7B241126F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TraceMoe.NET", "TraceMoe.NET\TraceMoe.NET.csproj", "{E0F71AA8-CD06-4AAB-9D37-B38E48B44D16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Slko.TraceMoeNET", "Core\Slko.TraceMoeNET\Slko.TraceMoeNET.csproj", "{E0F71AA8-CD06-4AAB-9D37-B38E48B44D16}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5114F71D-B255-49F0-B94D-EBC7CA4D7C93}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsolePlayground", "Tests\ConsolePlayground\ConsolePlayground.csproj", "{978243B7-5930-46D7-9F9E-ECBD2A4A8ED0}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plattforms", "Plattforms", "{D94EBFB7-11CE-4793-9B2B-361778EBF189}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoeTrace.DiscordBot", "Plattforms\MoeTrace.Discord\MoeTrace.DiscordBot.csproj", "{65849A7E-BFB5-4F82-ABEA-B85396E8A44E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Slko.TraceMoeNET.ConsoleClient", "Tests\Slko.TraceMoeNET.ConsoleClient\Slko.TraceMoeNET.ConsoleClient.csproj", "{978243B7-5930-46D7-9F9E-ECBD2A4A8ED0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +25,6 @@ Global
 		{978243B7-5930-46D7-9F9E-ECBD2A4A8ED0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{978243B7-5930-46D7-9F9E-ECBD2A4A8ED0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{978243B7-5930-46D7-9F9E-ECBD2A4A8ED0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{65849A7E-BFB5-4F82-ABEA-B85396E8A44E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{65849A7E-BFB5-4F82-ABEA-B85396E8A44E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{65849A7E-BFB5-4F82-ABEA-B85396E8A44E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{65849A7E-BFB5-4F82-ABEA-B85396E8A44E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -40,7 +32,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{E0F71AA8-CD06-4AAB-9D37-B38E48B44D16} = {480C5F07-3956-4518-BCE2-95D7B241126F}
 		{978243B7-5930-46D7-9F9E-ECBD2A4A8ED0} = {5114F71D-B255-49F0-B94D-EBC7CA4D7C93}
-		{65849A7E-BFB5-4F82-ABEA-B85396E8A44E} = {D94EBFB7-11CE-4793-9B2B-361778EBF189}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FD00892B-15FD-4465-A0C9-B70EFE693E75}
