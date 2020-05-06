@@ -61,10 +61,10 @@ namespace TraceMoe.NET
             }
             else
             {
-                requesurl = APIStatics.tokensearchurl + APIKey + "?url=";
+                requesurl = APIStatics.tokensearchurl + APIKey + "&url=";
             }
 
-            HttpResponseMessage responsemsg = await client.GetAsync(requesurl + HttpUtility.UrlEncode(imageUrl, Encoding.UTF8));
+            HttpResponseMessage responsemsg = await client.GetAsync(requesurl + Uri.EscapeDataString(imageUrl));
             string response = await responsemsg.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<SearchResponse>(response);
         }
