@@ -25,102 +25,104 @@ namespace Slko.TraceMoeNET.ConsoleClient
 
         static async Task Main(string[] args)
         {
-            var api = new TraceMoeClient();
-            var cts = new CancellationTokenSource();
-
-            Console.WriteLine("trace.moe API console client");
-            Console.WriteLine("Use Ctrl+C to exit");
-            Console.WriteLine();
-
-            Console.CancelKeyPress += (_, e) =>
+            using (var api = new TraceMoeClient())
             {
-                cts.Cancel();
+                var cts = new CancellationTokenSource();
+
+                Console.WriteLine("trace.moe API console client");
+                Console.WriteLine("Use Ctrl+C to exit");
                 Console.WriteLine();
-                Console.WriteLine("Ctrl+C received, exiting...");
-                e.Cancel = true;
-            };
 
-            try
-            {
-                do
+                Console.CancelKeyPress += (_, e) =>
                 {
-                    Console.Write("URL or File Name> ");
-                    var path = await WithCancellation(Task.Run(() => Console.ReadLine()), cts.Token);
-
-                    if (cts.IsCancellationRequested)
-                    {
-                        break;
-                    }
-
-                    if (string.IsNullOrWhiteSpace(path))
-                    {
-                        continue;
-                    }
-
+                    cts.Cancel();
                     Console.WriteLine();
-                    Console.WriteLine("Working...");
+                    Console.WriteLine("Ctrl+C received, exiting...");
+                    e.Cancel = true;
+                };
 
-                    SearchResponse response;
-
-                    try
+                try
+                {
+                    do
                     {
-                        if (File.Exists(path))
+                        Console.Write("URL or File Name> ");
+                        var path = await WithCancellation(Task.Run(() => Console.ReadLine()), cts.Token);
+
+                        if (cts.IsCancellationRequested)
                         {
-                            Console.WriteLine(" [*] Looks like a file path");
-                            Console.WriteLine(" [*] Reading the file into memory...");
-
-                            var imageData = await File.ReadAllBytesAsync(path);
-
-                            Console.WriteLine(" [*] Searching...");
-                            response = await api.SearchByImageAsync(imageData, cts.Token);
+                            break;
                         }
-                        else
+
+                        if (string.IsNullOrWhiteSpace(path))
                         {
-                            Console.WriteLine(" [*] Not a valid file path, using it as an URL");
-                            Console.WriteLine(" [*] Searching...");
-                            response = await api.SearchByURLAsync(path, cts.Token);
+                            continue;
                         }
 
                         Console.WriteLine();
-                        Console.WriteLine($"{response.Results.Length} result(s):");
-                        for (int i = 0; i < response.Results.Length; i++)
+                        Console.WriteLine("Working...");
+
+                        SearchResponse response;
+
+                        try
                         {
-                            var result = response.Results[i];
-                            Console.WriteLine($"Result #{i + 1} ({result.Similarity * 100:0.00}%)");
-                            Console.WriteLine($"   Original Title: {result.TitleNative}");
-                            Console.WriteLine($"   Romaji Title:   {result.TitleRomaji}");
-                            Console.WriteLine($"   English Title:  {result.TitleEnglish}");
-                            Console.WriteLine($"   Chinese Title:  {result.TitleChinese}");
-                            if (!string.IsNullOrWhiteSpace(result.Episode))
+                            if (File.Exists(path))
                             {
-                                Console.WriteLine($"   Episode:        {result.Episode} [{result.FoundTimestamp:hh\\:mm\\:ss}]");
+                                Console.WriteLine(" [*] Looks like a file path");
+                                Console.WriteLine(" [*] Reading the file into memory...");
+
+                                var imageData = await File.ReadAllBytesAsync(path);
+
+                                Console.WriteLine(" [*] Searching...");
+                                response = await api.SearchByImageAsync(imageData, cts.Token);
                             }
                             else
                             {
-                                Console.WriteLine($"   Timestamp:      {result.Episode} [{result.FoundTimestamp:hh:\\mm\\:ss}]");
+                                Console.WriteLine(" [*] Not a valid file path, using it as an URL");
+                                Console.WriteLine(" [*] Searching...");
+                                response = await api.SearchByURLAsync(path, cts.Token);
                             }
+
                             Console.WriteLine();
+                            Console.WriteLine($"{response.Results.Length} result(s):");
+                            for (int i = 0; i < response.Results.Length; i++)
+                            {
+                                var result = response.Results[i];
+                                Console.WriteLine($"Result #{i + 1} ({result.Similarity * 100:0.00}%)");
+                                Console.WriteLine($"   Original Title: {result.TitleNative}");
+                                Console.WriteLine($"   Romaji Title:   {result.TitleRomaji}");
+                                Console.WriteLine($"   English Title:  {result.TitleEnglish}");
+                                Console.WriteLine($"   Chinese Title:  {result.TitleChinese}");
+                                if (!string.IsNullOrWhiteSpace(result.Episode))
+                                {
+                                    Console.WriteLine($"   Episode:        {result.Episode} [{result.FoundTimestamp:hh\\:mm\\:ss}]");
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"   Timestamp:      {result.Episode} [{result.FoundTimestamp:hh:\\mm\\:ss}]");
+                                }
+                                Console.WriteLine();
+                            }
                         }
-                    }
 #pragma warning disable CA1031 // Do not catch general exception types
-                    catch (Exception e)
-                    {
-                        Console.WriteLine();
-                        Console.WriteLine(e);
-                        Console.WriteLine();
-                        continue;
-                    }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine(e);
+                            Console.WriteLine();
+                            continue;
+                        }
 #pragma warning restore CA1031 // Do not catch general exception types
 
 
-                } while (!cts.IsCancellationRequested);
-            }
+                    } while (!cts.IsCancellationRequested);
+                }
 #pragma warning disable CA1031 // Do not catch general exception types
-            catch (OperationCanceledException)
-            {
-                return;
-            }
+                catch (OperationCanceledException)
+                {
+                    return;
+                }
 #pragma warning restore CA1031 // Do not catch general exception types
+            }
         }
     }
 }

@@ -45,7 +45,7 @@ namespace Slko.TraceMoeNET
     ///     
     ///     For more information see https://soruly.github.io/trace.moe/
     /// </remarks>
-    public class TraceMoeClient
+    public class TraceMoeClient : IDisposable
     {
         /// <summary>
         ///     Base URL for trace.moe API (not including the trailing slash).
@@ -67,6 +67,8 @@ namespace Slko.TraceMoeNET
         ///     trace.moe API key.
         /// </summary>
         public string? APIKey { get; }
+
+        private bool _externalHttpClient = false;
 
         /// <summary>
         ///     Constructs a new TraceMoe instance with or without API key and proxy information.
@@ -93,6 +95,7 @@ namespace Slko.TraceMoeNET
         public TraceMoeClient(HttpClient httpClient, string? apiKey = null)
         {
             HttpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+            _externalHttpClient = true;
 
             HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -172,6 +175,22 @@ namespace Slko.TraceMoeNET
             }
 
             return await HttpClient.GetJsonAsync<MeResponse>($"{BaseURL}/api/me{arguments.BuildQueryString()}", cancellationToken);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (!_externalHttpClient)
+                {
+                    HttpClient.Dispose();
+                }
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
         }
     }
 }
