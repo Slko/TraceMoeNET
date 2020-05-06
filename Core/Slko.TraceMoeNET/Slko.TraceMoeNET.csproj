@@ -5,14 +5,16 @@
     <LangVersion>8.0</LangVersion>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Title>Slko.TraceMoeNET</Title>
     <Authors>Neuxz;Slko</Authors>
+    <Copyright>Copyright (c) 2019-2020 Benedikt, Stanislav Skobelkin</Copyright>
     <Company />
     <Description>A simple to use .NET Standard library for anime tracing using https://trace.moe/</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/Slko/TraceMoeNET</PackageProjectUrl>
     <PackageIcon>NuGetIcon.png</PackageIcon>
     <PackageTags>Reverse Image Search Anime TraceMoe ImageSearch Trace.Moe</PackageTags>
-    <RepositoryUrl>https://github.com/Slko/TraceMoeNET/tree/master/TraceMoe.NET</RepositoryUrl>
+    <RepositoryUrl>https://github.com/Slko/TraceMoeNET</RepositoryUrl>
     <PackageId>Slko.TraceMoeNET</PackageId>
     <Version>2.0.0</Version>
     <Product>Slko.TraceMoeNET</Product>
